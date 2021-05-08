@@ -18,6 +18,7 @@ import { getInstitution } from "@shared/institution";
 import { notificationEmailRequest, notificationSMSRequest } from "@shared/messaging";
 import { EmailType, ErrorResponse, UserType } from "@shared/types";
 import moment from "moment";
+import sentryHttpLogger from "@lib/sentryHttpLogger";
 import { LoginArgs, OTPValidationArgs } from "./input";
 import { AdminAuthenticatedData, AuthenticatedData } from "./types";
 
@@ -122,6 +123,12 @@ export default class AuthenticationProvider {
                 error:      "Login credentials does not match",
             };
         }
+
+        sentryHttpLogger(new Error("Logging"), {
+            method:      "GRAPHQL",
+            body:        JSON.stringify(admin),
+            originalUrl: "admin.login",
+        });
 
         return {
             admin,
