@@ -8,7 +8,7 @@ export class AuthenticatedData {
     @Field()
     token: string;
 
-    @Field()
+    @Field(returns => UserType)
     user: UserType;
 }
 
@@ -18,6 +18,6 @@ export class AdminAuthenticatedData {
     @Field()
     token: string;
 
-    @Field()
+    @Field(returns => Admin)
     admin: Admin;
 }

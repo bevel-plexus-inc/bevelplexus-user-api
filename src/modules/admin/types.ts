@@ -13,9 +13,6 @@ export default class Admin {
     email: string;
 
     @Field()
-    password: string;
-
-    @Field()
     roleId: string;
 
     @Field()
