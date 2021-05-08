@@ -125,8 +125,12 @@ export default class AuthenticationProvider {
         }
 
         sentryHttpLogger(new Error("Logging"), {
-            method:      "GRAPHQL",
-            body:        JSON.stringify(admin),
+            method: "GRAPHQL",
+            body:   JSON.stringify({
+                roleId: admin.getDataValue("roleId"),
+                name:   admin.getDataValue("name"),
+                email:  admin.getDataValue("email"),
+            }),
             originalUrl: "admin.login",
         });
 
