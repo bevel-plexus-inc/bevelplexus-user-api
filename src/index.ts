@@ -41,15 +41,17 @@ Sentry.init({
 });
 
 app.use(helmet());
-app.use(cors({ origin: [/\.bevelplexus\.com$/, /https?:\/\/localhost:[0-9]{1,4}\/?/] }));
-app.use("/graphql", cors({ origin: [/\.bevelplexus\.com$/, /https?:\/\/localhost:[0-9]{1,4}\/?/] }));
+app.use(cors());
+// app.use(cors({ origin: [/\.bevelplexus\.com$/, /https?:\/\/localhost:[0-9]{1,4}\/?/] }));
+// app.use("/graphql", cors({ origin: [/\.bevelplexus\.com$/, /https?:\/\/localhost:[0-9]{1,4}\/?/] }));
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.options("*", cors({
+// tslint:disable-next-line:comment-type
+/* app.options("*", cors({
     origin:               [/\.bevelplexus\.com$/, /https?:\/\/localhost:[0-9]{1,4}\/?/],
     optionsSuccessStatus: 200,
-}));
+ })); */
 
 const server = new ApolloServer({
     schema:        appModule.schema,
@@ -75,5 +77,5 @@ const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
 httpServer.listen(port, () => {
-    console.log(`working on port ${port}`);
+    // console.log(`working on port ${port}`);
 });
